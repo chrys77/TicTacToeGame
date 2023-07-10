@@ -137,12 +137,24 @@ public class TicTacToeGame {
     private static void placePlayerSymbol(char[][] gameBoard) {
         symbolPosition = 0;
         while(symbolPosition < 1 || symbolPosition > 9) {
-            System.out.print("\n> Enter the position of " + symbolPlayer + " (1 - 9): ");
-            symbolPosition = scInt.nextInt();
+            try {
+                System.out.print("\n> Enter the position of " + symbolPlayer + " (1 - 9): ");
+                symbolPosition = scInt.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("> Invalid input. Please enter a valid number.");
+                scInt.nextLine();
+                continue;
+            }
         }
         while (playerPositions.contains(symbolPosition) || computerPositions.contains(symbolPosition)) {
-            System.out.print("\n> The position is already filled.\n> Please choose another position (1 - 9): ");
-            symbolPosition = scInt.nextInt();
+            try {
+                System.out.print("\n> The position is already filled.\n> Please choose another position (1 - 9): ");
+                symbolPosition = scInt.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("> Invalid input. Please enter a valid number.");
+                scInt.nextLine();
+                continue;
+            }
         }
         placePieces(gameBoard, symbolPosition, "player");
     }
